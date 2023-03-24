@@ -1,4 +1,4 @@
-package com.dicoding.picodiploma.gitspot
+package com.dicoding.picodiploma.gitspot.data
 
 import com.google.gson.annotations.SerializedName
 
@@ -44,7 +44,7 @@ data class ItemsItem(
 	val subscriptionsUrl: String? = null,
 
 	@field:SerializedName("score")
-	val score: Int? = null,
+	val score: Any? = null,
 
 	@field:SerializedName("received_events_url")
 	val receivedEventsUrl: String? = null,
