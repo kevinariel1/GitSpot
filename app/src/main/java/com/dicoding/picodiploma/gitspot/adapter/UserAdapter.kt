@@ -8,9 +8,10 @@ import com.dicoding.picodiploma.gitspot.data.User
 import com.dicoding.picodiploma.gitspot.data.UserData
 import com.dicoding.picodiploma.gitspot.databinding.ItemUserBinding
 
-class UserAdapter(private val userList: List<UserData?>): RecyclerView.Adapter<UserAdapter.ViewHolder>(){
+class UserAdapter: RecyclerView.Adapter<UserAdapter.ViewHolder>(){
 
     private lateinit var listener: OnItemClickListener
+    private var userList: List<UserData?>? = null
 
     interface OnItemClickListener{
         fun onClick(user: UserData)
@@ -38,9 +39,13 @@ class UserAdapter(private val userList: List<UserData?>): RecyclerView.Adapter<U
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        userList[position]?.let { holder.bind(it) }
+        userList?.get(position)?.let { holder.bind(it) }
     }
 
-    override fun getItemCount(): Int = userList.size
+    override fun getItemCount(): Int = userList?.size ?: 0
+
+    fun submitList(list: List<UserData?>) {
+        userList = list
+    }
 
 }
