@@ -1,4 +1,4 @@
-package com.dicoding.picodiploma.gitspot
+package com.dicoding.picodiploma.gitspot.api
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

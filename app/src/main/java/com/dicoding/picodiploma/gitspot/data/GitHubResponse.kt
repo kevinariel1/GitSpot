@@ -1,4 +1,4 @@
-package com.dicoding.picodiploma.gitspot
+package com.dicoding.picodiploma.gitspot.data
 
 import com.google.gson.annotations.SerializedName
 
@@ -11,10 +11,10 @@ data class GitHubResponse(
 	val incompleteResults: Boolean? = null,
 
 	@field:SerializedName("items")
-	val items: List<ItemsItem?>? = null
+	val items: List<UserData?>? = null
 )
 
-data class ItemsItem(
+data class UserData(
 
 	@field:SerializedName("gists_url")
 	val gistsUrl: String? = null,

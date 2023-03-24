@@ -1,5 +1,7 @@
-package com.dicoding.picodiploma.gitspot
+package com.dicoding.picodiploma.gitspot.api
 
+import com.dicoding.picodiploma.gitspot.data.GitHubResponse
+import com.dicoding.picodiploma.gitspot.data.User
 import retrofit2.Call
 import retrofit2.http.*
 
