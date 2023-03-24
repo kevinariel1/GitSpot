@@ -4,16 +4,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.dicoding.picodiploma.gitspot.data.ItemsItem
+import com.dicoding.picodiploma.gitspot.data.UserData
 import com.dicoding.picodiploma.gitspot.databinding.ItemUserBinding
 
 class UserAdapter: RecyclerView.Adapter<UserAdapter.ViewHolder>(){
 
     private lateinit var listener: OnItemClickListener
-    private var userList: List<ItemsItem?>? = null
+    private var userList: List<UserData?>? = null
 
     interface OnItemClickListener{
-        fun onClick(user: ItemsItem)
+        fun onClick(user: UserData)
     }
 
     fun setOnClickListener(listener: OnItemClickListener){
@@ -21,7 +21,7 @@ class UserAdapter: RecyclerView.Adapter<UserAdapter.ViewHolder>(){
     }
 
     inner class ViewHolder(private val binding: ItemUserBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(user: ItemsItem){
+        fun bind(user: UserData){
             binding.apply {
                 tvUsername.text = user.login
                 Glide.with(binding.root)
@@ -43,7 +43,7 @@ class UserAdapter: RecyclerView.Adapter<UserAdapter.ViewHolder>(){
 
     override fun getItemCount(): Int = userList?.size ?: 0
 
-    fun submitList(list: List<ItemsItem?>) {
+    fun submitList(list: List<UserData?>) {
         userList = list
     }
 

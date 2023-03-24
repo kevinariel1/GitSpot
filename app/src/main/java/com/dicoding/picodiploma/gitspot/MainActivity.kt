@@ -15,7 +15,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.picodiploma.gitspot.adapter.UserAdapter
-import com.dicoding.picodiploma.gitspot.data.ItemsItem
+import com.dicoding.picodiploma.gitspot.data.UserData
 import com.dicoding.picodiploma.gitspot.ui.MenuFragment
 import com.dicoding.picodiploma.gitspot.viewmodel.UserViewModel
 
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         adapter.setOnClickListener(object : UserAdapter.OnItemClickListener{
-            override fun onClick(user: ItemsItem) {
+            override fun onClick(user: UserData) {
                 Log.d(TAG, "onClick: $user")
                 // pas diklik diapain
             }
