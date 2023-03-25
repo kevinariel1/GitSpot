@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dicoding.picodiploma.gitspot.data.GitHubResponse
 import com.dicoding.picodiploma.gitspot.api.ApiConfig
+import com.dicoding.picodiploma.gitspot.data.GitHubResponseTwo
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,7 +20,7 @@ class UserViewModel : ViewModel() {
     val users: LiveData<GitHubResponse> = _userResponse
 
     init {
-        searchUser("Michael")
+        searchUser("Kevin")
     }
 
 

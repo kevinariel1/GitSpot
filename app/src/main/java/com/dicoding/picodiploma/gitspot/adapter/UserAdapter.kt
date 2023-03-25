@@ -2,10 +2,14 @@ package com.dicoding.picodiploma.gitspot.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.dicoding.picodiploma.gitspot.R
 import com.dicoding.picodiploma.gitspot.data.UserData
 import com.dicoding.picodiploma.gitspot.databinding.ItemUserBinding
+import org.w3c.dom.Text
 
 class UserAdapter: RecyclerView.Adapter<UserAdapter.ViewHolder>(){
 
@@ -21,9 +25,17 @@ class UserAdapter: RecyclerView.Adapter<UserAdapter.ViewHolder>(){
     }
 
     inner class ViewHolder(private val binding: ItemUserBinding): RecyclerView.ViewHolder(binding.root) {
+        var uname: TextView = itemView.findViewById(R.id.tv_username)
+        var fname: TextView = itemView.findViewById(R.id.tv_name)
+        var photo: ImageView = itemView.findViewById(R.id.iv_avatar)
+        var follower : TextView = itemView.findViewById(R.id.tv_follower_count)
+        var following : TextView = itemView.findViewById(R.id.tv_following_count)
         fun bind(user: UserData){
             binding.apply {
                 tvUsername.text = user.login
+                tvName.text = user.login
+                tvFollowingCount.text = user.followingUrl
+                tvFollowerCount.text = user.followersUrl
                 Glide.with(binding.root)
                     .load(user.avatarUrl)
                     .into(ivAvatar)
