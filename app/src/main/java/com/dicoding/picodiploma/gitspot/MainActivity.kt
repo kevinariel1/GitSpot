@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val userVm : UserViewModel by viewModels()
-    private var adapter: UserAdapter = UserAdapter()
+    private var adapter: UserAdapter = UserAdapter(UserViewModel())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         adapter.setOnClickListener(object : UserAdapter.OnItemClickListener{
-            override fun onClick(user: UserData) {
+            override fun onClick(user: UserData, viewModel: UserViewModel) {
                 Log.d(TAG, "onClick: $user")
                 // pas diklik diapain
             }

@@ -2,30 +2,27 @@ package com.dicoding.picodiploma.gitspot.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.dicoding.picodiploma.gitspot.R
 import com.dicoding.picodiploma.gitspot.data.UserData
 import com.dicoding.picodiploma.gitspot.databinding.ItemUserBinding
-import org.w3c.dom.Text
+import com.dicoding.picodiploma.gitspot.viewmodel.UserViewModel
 
-class UserAdapter: RecyclerView.Adapter<UserAdapter.ViewHolder>(){
+class UserAdapter(private val viewModel: UserViewModel) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
     private lateinit var listener: OnItemClickListener
     private var userList: List<UserData?>? = null
 
-    interface OnItemClickListener{
-        fun onClick(user: UserData)
+    interface OnItemClickListener {
+        fun onClick(user: UserData, viewModel: UserViewModel)
     }
 
-    fun setOnClickListener(listener: OnItemClickListener){
+    fun setOnClickListener(listener: OnItemClickListener) {
         this.listener = listener
     }
 
-    inner class ViewHolder(private val binding: ItemUserBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(user: UserData){
+    inner class ViewHolder(private val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(user: UserData) {
             binding.apply {
                 tvUsername.text = user.login
                 tvName.text = user.login
@@ -34,7 +31,7 @@ class UserAdapter: RecyclerView.Adapter<UserAdapter.ViewHolder>(){
                 Glide.with(binding.root)
                     .load(user.avatarUrl)
                     .into(ivAvatar)
-                root.setOnClickListener { listener.onClick(user) }
+                root.setOnClickListener { listener.onClick(user, viewModel) }
             }
         }
     }
@@ -53,5 +50,4 @@ class UserAdapter: RecyclerView.Adapter<UserAdapter.ViewHolder>(){
     fun submitList(list: List<UserData?>) {
         userList = list
     }
-
 }

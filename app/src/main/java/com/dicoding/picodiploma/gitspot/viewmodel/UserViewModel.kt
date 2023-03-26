@@ -17,6 +17,7 @@ class UserViewModel : ViewModel() {
     }
 
     private var _userResponse: MutableLiveData<GitHubResponse> = MutableLiveData()
+    private val userDetail = MutableLiveData<GitHubResponseTwo>()
     val users: LiveData<GitHubResponse> = _userResponse
 
     init {
@@ -40,5 +41,25 @@ class UserViewModel : ViewModel() {
             }
 
         })
+    }
+
+    fun setUserDetail(username: String?) {
+        if (username != null) {
+            ApiConfig.getApiService().getUserDetail(username).enqueue(object : Callback<GitHubResponseTwo> {
+                override fun onResponse(call: Call<GitHubResponseTwo>, response: Response<GitHubResponseTwo>) {
+                    if (response.isSuccessful) {
+                        userDetail.postValue(response.body())
+                    }
+                }
+
+                override fun onFailure(call: Call<GitHubResponseTwo>, t: Throwable) {
+                    t.printStackTrace()
+                }
+            })
+        }
+    }
+
+    fun getUserDetail(): LiveData<GitHubResponseTwo> {
+        return userDetail
     }
 }
