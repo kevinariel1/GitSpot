@@ -11,6 +11,7 @@ import com.dicoding.picodiploma.gitspot.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity() {
 
+    /*
     private lateinit var binding: ActivityDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,5 +39,5 @@ class DetailActivity : AppCompatActivity() {
                 .into(ivAvatar)
         }
     }
-
+    */
 }

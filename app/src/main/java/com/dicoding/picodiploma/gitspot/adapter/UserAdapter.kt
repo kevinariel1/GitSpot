@@ -25,11 +25,6 @@ class UserAdapter: RecyclerView.Adapter<UserAdapter.ViewHolder>(){
     }
 
     inner class ViewHolder(private val binding: ItemUserBinding): RecyclerView.ViewHolder(binding.root) {
-        var uname: TextView = itemView.findViewById(R.id.tv_username)
-        var fname: TextView = itemView.findViewById(R.id.tv_name)
-        var photo: ImageView = itemView.findViewById(R.id.iv_avatar)
-        var follower : TextView = itemView.findViewById(R.id.tv_follower_count)
-        var following : TextView = itemView.findViewById(R.id.tv_following_count)
         fun bind(user: UserData){
             binding.apply {
                 tvUsername.text = user.login
