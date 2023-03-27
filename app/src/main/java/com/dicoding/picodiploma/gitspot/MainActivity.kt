@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val userVm : UserViewModel by viewModels()
-    private var adapter: UserAdapter = UserAdapter(UserViewModel())
+    private var adapter: UserAdapter = UserAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,9 +44,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         adapter.setOnClickListener(object : UserAdapter.OnItemClickListener{
-            override fun onClick(user: UserData, viewModel: UserViewModel) {
+            override fun onClick(user: UserData) {
+                val bundle = Bundle()
+                bundle.putParcelable(DetailActivity.EXTRA_USER, user)
                 val intent = Intent(this@MainActivity, DetailActivity::class.java).apply {
-                    putExtra(DetailActivity.EXTRA_USER, user)
+                    putExtras(bundle)
                 }
                 startActivity(intent)
             }

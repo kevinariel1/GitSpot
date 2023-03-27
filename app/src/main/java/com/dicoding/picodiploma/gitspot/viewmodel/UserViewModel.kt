@@ -17,8 +17,9 @@ class UserViewModel : ViewModel() {
     }
 
     private var _userResponse: MutableLiveData<GitHubResponse> = MutableLiveData()
-    private val userDetail = MutableLiveData<GitHubResponseTwo>()
+    private val _userDetail: MutableLiveData<GitHubResponseTwo> = MutableLiveData()
     val users: LiveData<GitHubResponse> = _userResponse
+    val userDetail : LiveData<GitHubResponseTwo> = _userDetail
 
     init {
         searchUser("Kevin")
@@ -48,7 +49,7 @@ class UserViewModel : ViewModel() {
             ApiConfig.getApiService().getUserDetail(username).enqueue(object : Callback<GitHubResponseTwo> {
                 override fun onResponse(call: Call<GitHubResponseTwo>, response: Response<GitHubResponseTwo>) {
                     if (response.isSuccessful) {
-                        userDetail.postValue(response.body())
+                        _userDetail.postValue(response.body())
                     }
                 }
 
@@ -57,9 +58,5 @@ class UserViewModel : ViewModel() {
                 }
             })
         }
-    }
-
-    fun getUserDetail(): LiveData<GitHubResponseTwo> {
-        return userDetail
     }
 }

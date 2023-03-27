@@ -8,13 +8,13 @@ import com.dicoding.picodiploma.gitspot.data.UserData
 import com.dicoding.picodiploma.gitspot.databinding.ItemUserBinding
 import com.dicoding.picodiploma.gitspot.viewmodel.UserViewModel
 
-class UserAdapter(private val viewModel: UserViewModel) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+class UserAdapter() : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
     private lateinit var listener: OnItemClickListener
     private var userList: List<UserData?>? = null
 
     interface OnItemClickListener {
-        fun onClick(user: UserData, viewModel: UserViewModel)
+        fun onClick(user: UserData)
     }
 
     fun setOnClickListener(listener: OnItemClickListener) {
@@ -31,7 +31,7 @@ class UserAdapter(private val viewModel: UserViewModel) : RecyclerView.Adapter<U
                 Glide.with(binding.root)
                     .load(user.avatarUrl)
                     .into(ivAvatar)
-                root.setOnClickListener { listener.onClick(user, viewModel) }
+                root.setOnClickListener { listener.onClick(user) }
             }
         }
     }
