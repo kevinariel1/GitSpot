@@ -1,6 +1,8 @@
 package com.dicoding.picodiploma.gitspot.data
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class GitHubResponse(
 
@@ -14,6 +16,7 @@ data class GitHubResponse(
 	val items: List<UserData?>? = null
 )
 
+@Parcelize
 data class UserData(
 
 	@field:SerializedName("gists_url")
@@ -44,7 +47,7 @@ data class UserData(
 	val subscriptionsUrl: String? = null,
 
 	@field:SerializedName("score")
-	val score: Any? = null,
+	val score: Double? = null,
 
 	@field:SerializedName("received_events_url")
 	val receivedEventsUrl: String? = null,
@@ -72,4 +75,4 @@ data class UserData(
 
 	@field:SerializedName("organizations_url")
 	val organizationsUrl: String? = null
-)
+) : Parcelable

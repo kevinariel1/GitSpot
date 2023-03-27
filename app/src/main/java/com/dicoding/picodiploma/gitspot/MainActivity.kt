@@ -45,8 +45,10 @@ class MainActivity : AppCompatActivity() {
 
         adapter.setOnClickListener(object : UserAdapter.OnItemClickListener{
             override fun onClick(user: UserData, viewModel: UserViewModel) {
-                Log.d(TAG, "onClick: $user")
-                // pas diklik diapain
+                val intent = Intent(this@MainActivity, DetailActivity::class.java).apply {
+                    putExtra(DetailActivity.EXTRA_USER, user)
+                }
+                startActivity(intent)
             }
         })
     }

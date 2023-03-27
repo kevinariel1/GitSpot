@@ -6,6 +6,7 @@ import androidx.activity.OnBackPressedCallback
 import com.bumptech.glide.Glide
 import com.dicoding.picodiploma.gitspot.api.ApiConfig
 import com.dicoding.picodiploma.gitspot.data.GitHubResponseTwo
+import com.dicoding.picodiploma.gitspot.data.UserData
 import com.dicoding.picodiploma.gitspot.databinding.ActivityDetailBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -14,6 +15,7 @@ import retrofit2.Response
 class DetailActivity : AppCompatActivity() {
 
     companion object {
+        const val EXTRA_USER = "extra_user"
         const val EXTRA_USERNAME = "extra_username"
     }
 
@@ -24,6 +26,7 @@ class DetailActivity : AppCompatActivity() {
 
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val user = intent.getParcelableExtra<UserData>(EXTRA_USER)
 
         supportActionBar?.apply {
             title = resources.getString(R.string.detail_user)
