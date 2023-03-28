@@ -17,8 +17,9 @@ class UserViewModel : ViewModel() {
     }
 
     private var _userResponse: MutableLiveData<GitHubResponse> = MutableLiveData()
-    private val userDetail = MutableLiveData<GitHubResponseTwo>()
+    private val _userDetail: MutableLiveData<GitHubResponseTwo> = MutableLiveData()
     val users: LiveData<GitHubResponse> = _userResponse
+    val userDetail : LiveData<GitHubResponseTwo> = _userDetail
 
     init {
         searchUser("Kevin")
@@ -43,23 +44,17 @@ class UserViewModel : ViewModel() {
         })
     }
 
-    fun setUserDetail(username: String?) {
-        if (username != null) {
-            ApiConfig.getApiService().getUserDetail(username).enqueue(object : Callback<GitHubResponseTwo> {
-                override fun onResponse(call: Call<GitHubResponseTwo>, response: Response<GitHubResponseTwo>) {
-                    if (response.isSuccessful) {
-                        userDetail.postValue(response.body())
-                    }
+    fun getUserDetail(username: String) {
+        ApiConfig.getApiService().getUserDetail(username).enqueue(object : Callback<GitHubResponseTwo> {
+            override fun onResponse(call: Call<GitHubResponseTwo>, response: Response<GitHubResponseTwo>) {
+                if (response.isSuccessful) {
+                    _userDetail.postValue(response.body())
                 }
+            }
 
-                override fun onFailure(call: Call<GitHubResponseTwo>, t: Throwable) {
-                    t.printStackTrace()
-                }
-            })
-        }
-    }
-
-    fun getUserDetail(): LiveData<GitHubResponseTwo> {
-        return userDetail
+            override fun onFailure(call: Call<GitHubResponseTwo>, t: Throwable) {
+                // handle error
+            }
+        })
     }
 }
