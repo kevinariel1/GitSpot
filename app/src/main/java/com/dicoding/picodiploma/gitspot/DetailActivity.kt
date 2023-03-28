@@ -19,6 +19,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+private const val TAG = "DetailActivity"
 class DetailActivity : AppCompatActivity() {
 
     companion object {
@@ -32,18 +33,20 @@ class DetailActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val bundle = intent.getBundleExtra(EXTRA_USER)
-        val user = bundle?.getParcelable(EXTRA_USER, UserData::class.java)
+        val user = intent.getParcelableExtra<UserData>(EXTRA_USER)
+        Log.d(TAG, "parcelable: $user")
+        user?.let {
+            userVm.getUserDetail(it.login!!)
+        }
 
         supportActionBar?.apply {
             title = resources.getString(R.string.detail_user)
             setDisplayHomeAsUpEnabled(true)
         }
 
-        val username = intent.getStringExtra(EXTRA_USERNAME)
+//        val username = intent.getStringExtra(EXTRA_USERNAME)
 
         userVm.userDetail.observe(this) { userDetail ->
             // update the UI with the user detail
@@ -56,9 +59,9 @@ class DetailActivity : AppCompatActivity() {
         }
 
         // get the user detail from the ViewModel
-        if (username != null) {
-            userVm.getUserDetail(user!!.id!!.toString())
-        }
+//        if (username != null) {
+//
+//        }
     }
 
     override fun onStart() {

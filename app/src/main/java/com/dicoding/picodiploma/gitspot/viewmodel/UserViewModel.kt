@@ -21,11 +21,6 @@ class UserViewModel : ViewModel() {
     val users: LiveData<GitHubResponse> = _userResponse
     val userDetail : LiveData<GitHubResponseTwo> = _userDetail
 
-    init {
-        searchUser("Kevin")
-    }
-
-
     fun searchUser(q: String){
         ApiConfig.getApiService().searchUsers(q).enqueue(object :Callback<GitHubResponse>{
             override fun onResponse(

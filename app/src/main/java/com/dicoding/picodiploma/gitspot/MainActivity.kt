@@ -13,6 +13,7 @@ import com.dicoding.picodiploma.gitspot.databinding.ActivityMainBinding
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.picodiploma.gitspot.DetailActivity.Companion.EXTRA_USER
 import com.dicoding.picodiploma.gitspot.adapter.UserAdapter
 import com.dicoding.picodiploma.gitspot.data.UserData
 import com.dicoding.picodiploma.gitspot.ui.MenuFragment
@@ -35,6 +36,8 @@ class MainActivity : AppCompatActivity() {
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.rvAccount.addItemDecoration(itemDecoration)
 
+        userVm.searchUser("kevin");
+
         userVm.users.observe(this){
             it.items?.let { list ->
                 adapter.submitList(list)
@@ -44,11 +47,10 @@ class MainActivity : AppCompatActivity() {
 
         adapter.setOnClickListener(object : UserAdapter.OnItemClickListener{
             override fun onClick(user: UserData) {
-                val bundle = Bundle()
-                bundle.putParcelable(DetailActivity.EXTRA_USERNAME, user)
-                val intent = Intent(this@MainActivity, DetailActivity::class.java).apply {
-                    putExtras(bundle)
-                }
+//                val bundle = Bundle()
+//                bundle.putParcelable(DetailActivity.EXTRA_USERNAME, user)
+                val intent = Intent(this@MainActivity, DetailActivity::class.java)
+                intent.putExtra(EXTRA_USER, user)
                 startActivity(intent)
             }
         })
