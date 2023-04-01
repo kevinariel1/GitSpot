@@ -4,6 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.dicoding.picodiploma.gitspot.data.GitHubResponseThree
+import com.dicoding.picodiploma.gitspot.data.GitHubResponseThreeItem
 import com.dicoding.picodiploma.gitspot.data.GitHubResponseTwo
 import com.dicoding.picodiploma.gitspot.data.UserData
 import com.dicoding.picodiploma.gitspot.databinding.ItemUserBinding
@@ -13,6 +16,13 @@ class UserAdapter() : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
     private lateinit var listener: OnItemClickListener
     private var userList: List<UserData?>? = null
     private var userDetail : List<GitHubResponseTwo?>? = null
+    private var submitList = mutableListOf<List<GitHubResponseThreeItem>>()
+
+    fun setSubmitList(users: List<GitHubResponseThreeItem>) {
+        submitList.clear()
+        submitList.addAll(listOf(users))
+        notifyDataSetChanged()
+    }
 
     interface OnItemClickListener {
         fun onClick(user: UserData)
