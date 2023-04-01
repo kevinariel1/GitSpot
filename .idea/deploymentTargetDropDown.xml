@@ -7,11 +7,19 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
+<<<<<<< HEAD
             <value value="C:\Users\ACER\.android\avd\Pocophone_M5s_API_31.avd" />
+=======
+            <value value="C:\Users\Dwika\.android\avd\Pixel_4_API_30_9.avd" />
+>>>>>>> e1fc1920014a3d2d43f54c135629bef6d54a67e2
           </Key>
         </deviceKey>
       </Target>
     </targetSelectedWithDropDown>
+<<<<<<< HEAD
     <timeTargetWasSelectedWithDropDown value="2023-03-31T22:51:39.425772700Z" />
+=======
+    <timeTargetWasSelectedWithDropDown value="2023-03-27T10:43:21.904650900Z" />
+>>>>>>> e1fc1920014a3d2d43f54c135629bef6d54a67e2
   </component>
 </project>
