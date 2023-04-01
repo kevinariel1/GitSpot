@@ -46,8 +46,8 @@ class FollowFragment : Fragment() {
         val itemDecoration = DividerItemDecoration(requireActivity(), layoutManager.orientation)
         binding.rvFollow.addItemDecoration(itemDecoration)
 
-        userVm.userFollow.observe(viewLifecycleOwner){ setSubmitList ->
-            adapter.setSubmitList(setSubmitList)
+        userVm.userFollow.observe(viewLifecycleOwner){ submitList ->
+            submitList.gitHubResponseThree?.let { adapter.submitList(it) }
             binding.rvFollow.adapter = adapter
         }
 

@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 data class GitHubResponseThree(
 
 	@field:SerializedName("GitHubResponseThree")
-	val gitHubResponseThree: List<GitHubResponseThreeItem?>? = null
+	val gitHubResponseThree: List<UserData?>? = null
 )
 
 @Parcelize
