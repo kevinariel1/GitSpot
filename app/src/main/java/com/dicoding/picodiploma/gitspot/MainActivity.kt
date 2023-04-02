@@ -6,7 +6,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.dicoding.picodiploma.gitspot.databinding.ActivityMainBinding
@@ -16,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.picodiploma.gitspot.DetailActivity.Companion.EXTRA_USER
 import com.dicoding.picodiploma.gitspot.adapter.UserAdapter
 import com.dicoding.picodiploma.gitspot.data.UserData
-import com.dicoding.picodiploma.gitspot.ui.MenuFragment
 import com.dicoding.picodiploma.gitspot.viewmodel.UserViewModel
 
 private const val TAG = "MainActivity"
@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val userVm : UserViewModel by viewModels()
     private var adapter: UserAdapter = UserAdapter()
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +34,12 @@ class MainActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this)
         binding.rvAccount.layoutManager = layoutManager
         binding.rvAccount.adapter = adapter
+
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.rvAccount.addItemDecoration(itemDecoration)
+
+        progressBar = binding.progressBar
+        progressBar.visibility = View.VISIBLE
 
         userVm.searchUser("kevin");
 
@@ -42,6 +47,8 @@ class MainActivity : AppCompatActivity() {
             it.items?.let { list ->
                 adapter.submitList(list)
                 binding.rvAccount.adapter = adapter
+                progressBar.visibility = View.GONE
+                binding.rvAccount.visibility = View.VISIBLE
             }
         }
 
@@ -64,41 +71,19 @@ class MainActivity : AppCompatActivity() {
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
         searchView.queryHint = resources.getString(R.string.search_hint)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            /*
-            Gunakan method ini ketika search selesai atau OK
-             */
+
             override fun onQueryTextSubmit(query: String): Boolean {
                 Toast.makeText(this@MainActivity, query, Toast.LENGTH_SHORT).show()
+                progressBar.visibility = View.VISIBLE
                 userVm.searchUser(query)
                 searchView.clearFocus()
                 return true
             }
 
-            /*
-            Gunakan method ini untuk merespon tiap perubahan huruf pada searchView
-             */
             override fun onQueryTextChange(newText: String): Boolean {
                 return false
             }
         })
         return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.menu1 -> {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, MenuFragment())
-                    .addToBackStack(null)
-                    .commit()
-                true
-            }
-            R.id.menu2 -> {
-                val i = Intent(this, MenuActivity::class.java)
-                startActivity(i)
-                true
-            }
-            else -> true
-        }
     }
 }

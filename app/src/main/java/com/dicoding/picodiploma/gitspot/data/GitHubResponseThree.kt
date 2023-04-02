@@ -4,11 +4,12 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class GitHubResponseThree(
 
 	@field:SerializedName("GitHubResponseThree")
-	val gitHubResponseThree: List<UserData?>? = null
-)
+	val gitHubResponseThree: List<GitHubResponseThreeItem?>? = null
+) : Parcelable
 
 @Parcelize
 data class GitHubResponseThreeItem(

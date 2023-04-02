@@ -12,8 +12,8 @@ interface ApiService {
     fun getUserDetail(@Path("username") username: String): Call<GitHubResponseTwo>
 
     @GET("users/{username}/followers")
-    fun getFollowers(@Path("username") username: String): Call<GitHubResponseThree>
+    fun getFollowers(@Path("username") username: String): Call<List<GitHubResponseThreeItem>>
 
     @GET("users/{username}/following")
-    fun getFollowing(@Path("username") username: String): Call<GitHubResponseThree>
+    fun getFollowing(@Path("username") username: String): Call<List<GitHubResponseThreeItem>>
 }

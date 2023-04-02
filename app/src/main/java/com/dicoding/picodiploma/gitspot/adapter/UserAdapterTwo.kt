@@ -7,21 +7,12 @@ import com.bumptech.glide.Glide
 import com.dicoding.picodiploma.gitspot.data.*
 import com.dicoding.picodiploma.gitspot.databinding.ItemUserBinding
 
-class UserAdapter() : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+class UserAdapterTwo() : RecyclerView.Adapter<UserAdapterTwo.ViewHolder>() {
 
-    private lateinit var listener: OnItemClickListener
-    private var userList: List<UserData?>? = null
-
-    interface OnItemClickListener {
-        fun onClick(user: UserData)
-    }
-
-    fun setOnClickListener(listener: OnItemClickListener) {
-        this.listener = listener
-    }
+    private var followerList : List<GitHubResponseThreeItem?>? = null
 
     inner class ViewHolder(private val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(user: UserData) {
+        fun bind(user: GitHubResponseThreeItem) {
             binding.apply {
                 tvUsername.text = user.login
                 tvName.text = user.login
@@ -30,7 +21,6 @@ class UserAdapter() : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
                 Glide.with(binding.root)
                     .load(user.avatarUrl)
                     .into(ivAvatar)
-                root.setOnClickListener { listener.onClick(user) }
             }
         }
     }
@@ -41,12 +31,12 @@ class UserAdapter() : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        userList?.get(position)?.let { holder.bind(it) }
+        followerList?.get(position)?.let { holder.bind(it) }
     }
 
-    override fun getItemCount(): Int = userList?.size ?: 0
+    override fun getItemCount(): Int = followerList?.size ?: 0
 
-    fun submitList(list: List<UserData?>) {
-        userList = list
+    fun setList(list: List<GitHubResponseThreeItem?>) {
+        followerList = list
     }
 }

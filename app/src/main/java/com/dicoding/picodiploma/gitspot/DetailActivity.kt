@@ -4,7 +4,8 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
+import android.view.View
+import android.widget.ProgressBar
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
@@ -33,6 +34,7 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private val userVm: UserViewModel by viewModels()
     private lateinit var username: String
+    private lateinit var progressBar: ProgressBar
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,24 +42,26 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        progressBar = binding.progressBar
+        progressBar.visibility = View.VISIBLE
+
+        supportActionBar?.title = "Detail User GitSpot"
+
         val user = intent?.getParcelableExtra<UserData>(EXTRA_USER)
         Log.d(TAG, "parcelable: $user")
         user?.let {
             userVm.getUserDetail(it.login!!)
             username = it.login!!
         }
+
         val sectionsPagerAdapter = SectionsPagerAdapter(this, username)
         val viewPager: ViewPager2 = findViewById(R.id.viewPager)
         viewPager.adapter = sectionsPagerAdapter
         val tabs : TabLayout = findViewById(R.id.tabLayout)
+
         TabLayoutMediator(tabs, viewPager) { tab, position ->
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
-
-        supportActionBar?.apply {
-            title = resources.getString(R.string.detail_user)
-            setDisplayHomeAsUpEnabled(true)
-        }
 
         userVm.userDetail.observe(this) { userDetail ->
             // update the UI with the user detail
@@ -69,6 +73,7 @@ class DetailActivity : AppCompatActivity() {
             binding.tvUsername.text = userDetail.login
             binding.tvFollowerCount.text =  userDetail.followers.toString() + " Followers"
             binding.tvFollowingCount.text = userDetail.following.toString() + " Following"
+            progressBar.visibility = View.GONE
             // ...
         }
     }

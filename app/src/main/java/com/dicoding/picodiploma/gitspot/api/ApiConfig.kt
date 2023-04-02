@@ -1,12 +1,10 @@
 package com.dicoding.picodiploma.gitspot.api
 
-import com.dicoding.picodiploma.gitspot.data.GitHubResponseThreeItem
-    import okhttp3.Interceptor
-    import okhttp3.OkHttpClient
-    import okhttp3.logging.HttpLoggingInterceptor
-    import retrofit2.Callback
-    import retrofit2.Retrofit
-    import retrofit2.converter.gson.GsonConverterFactory
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiConfig {
     companion object {
@@ -14,7 +12,7 @@ class ApiConfig {
             val authInterceptor = Interceptor { chain ->
                 val req = chain.request()
                 val requestHeaders = req.newBuilder()
-                    .addHeader("Authorization", //"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")
+                    .addHeader("Authorization", "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")
                     .build()
                 chain.proceed(requestHeaders)
             }

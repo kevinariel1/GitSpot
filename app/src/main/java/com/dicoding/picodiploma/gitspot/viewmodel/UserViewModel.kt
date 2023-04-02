@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dicoding.picodiploma.gitspot.data.GitHubResponse
 import com.dicoding.picodiploma.gitspot.api.ApiConfig
-import com.dicoding.picodiploma.gitspot.data.GitHubResponseThree
 import com.dicoding.picodiploma.gitspot.data.GitHubResponseThreeItem
 import com.dicoding.picodiploma.gitspot.data.GitHubResponseTwo
 import retrofit2.Call
@@ -20,10 +19,12 @@ class UserViewModel : ViewModel() {
 
     private var _userResponse: MutableLiveData<GitHubResponse> = MutableLiveData()
     private var _userDetail: MutableLiveData<GitHubResponseTwo> = MutableLiveData()
-    private var _userFollow : MutableLiveData<GitHubResponseThree> = MutableLiveData()
+    private var _userFollower : MutableLiveData<List<GitHubResponseThreeItem>> = MutableLiveData()
+    private var _userFollowing : MutableLiveData<List<GitHubResponseThreeItem>> = MutableLiveData()
     val users: LiveData<GitHubResponse> = _userResponse
     val userDetail : LiveData<GitHubResponseTwo> = _userDetail
-    val userFollow : LiveData<GitHubResponseThree> = _userFollow
+    val userFollower : LiveData<List<GitHubResponseThreeItem>> = _userFollower
+    val userFollowing : LiveData<List<GitHubResponseThreeItem>> = _userFollowing
 
     fun searchUser(q: String){
         ApiConfig.getApiService().searchUsers(q).enqueue(object :Callback<GitHubResponse>{
@@ -59,15 +60,15 @@ class UserViewModel : ViewModel() {
 
     fun getUserFollowers(username: String){
         Log.d("UserViewModel", "getUserFollowers called with username: $username")
-        ApiConfig.getApiService().getFollowers(username).enqueue(object : Callback<GitHubResponseThree>{
-            override fun onResponse(call: Call<GitHubResponseThree>, response: Response<GitHubResponseThree>
+        ApiConfig.getApiService().getFollowers(username).enqueue(object : Callback<List<GitHubResponseThreeItem>>{
+            override fun onResponse(call: Call<List<GitHubResponseThreeItem>>, response: Response<List<GitHubResponseThreeItem>>
             ) {
                 if(response.isSuccessful){
-                    _userFollow.postValue(response.body())
+                    _userFollower.postValue(response.body())
                 }
             }
 
-            override fun onFailure(call: Call<GitHubResponseThree>, t: Throwable) {
+            override fun onFailure(call: Call<List<GitHubResponseThreeItem>>, t: Throwable) {
                 // handle error
             }
         })
@@ -75,15 +76,15 @@ class UserViewModel : ViewModel() {
 
     fun getUserFollowing(username: String){
         Log.d("UserViewModel", "getUserFollowing called with username: $username")
-        ApiConfig.getApiService().getFollowing(username).enqueue(object : Callback<GitHubResponseThree>{
-            override fun onResponse(call: Call<GitHubResponseThree>, response: Response<GitHubResponseThree>
+        ApiConfig.getApiService().getFollowing(username).enqueue(object : Callback<List<GitHubResponseThreeItem>>{
+            override fun onResponse(call: Call<List<GitHubResponseThreeItem>>, response: Response<List<GitHubResponseThreeItem>>
             ) {
                 if(response.isSuccessful){
-                    _userFollow.postValue(response.body())
+                    _userFollowing.postValue(response.body())
                 }
             }
 
-            override fun onFailure(call: Call<GitHubResponseThree>, t: Throwable) {
+            override fun onFailure(call: Call<List<GitHubResponseThreeItem>>, t: Throwable) {
                 // handle error
             }
         })
